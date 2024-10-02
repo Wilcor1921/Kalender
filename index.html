@@ -41,6 +41,18 @@
         button:hover {
             background-color: #218838;
         }
+        #eventList {
+            margin-top: 20px;
+            padding: 0;
+            list-style-type: none;
+        }
+        #eventList li {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
         #downloadLink {
             display: block;
             text-align: center;
@@ -49,7 +61,7 @@
     </style>
 </head>
 <body>
-    <h1>Generera Kalenderfil</h1>
+    <h1>Generera ICS Kalender</h1>
     <form id="eventForm">
         <label for="title">Händelse Titel:</label>
         <input type="text" id="title" name="title" required>
@@ -76,6 +88,9 @@
         <button type="button" onclick="addEvent()">Lägg till händelse</button>
         <button type="button" onclick="generateICS()">Generera ICS</button>
     </form>
+
+    <h2>Tillagda händelser</h2>
+    <ul id="eventList"></ul>
 
     <a id="downloadLink" style="display:none;">Ladda ner din ICS-fil</a>
 
