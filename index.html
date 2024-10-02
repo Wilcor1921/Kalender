@@ -1,3 +1,7 @@
+Här är en uppdaterad version som inkluderar den korta och koncisa textrutan innan de återkommande alternativen:
+
+HTML-uppdatering
+
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -5,59 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICS Kalendergenerator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            font-weight: bold;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        #eventList {
-            margin-top: 20px;
-            padding: 0;
-            list-style-type: none;
-        }
-        #eventList li {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        #downloadLink {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-        }
+        /* Samma stil som tidigare */
     </style>
 </head>
 <body>
@@ -71,6 +23,10 @@
 
         <label for="end">Slutdatum & tid:</label>
         <input type="datetime-local" id="end" name="end" required>
+
+        <div id="recurring-info">
+            <p>Om händelsen är återkommande, fyll i nedan. För enskilda händelser, klicka Generera. För flera, lägg till dem en och en. När alla är inlagda, klicka Generera.</p>
+        </div>
 
         <label for="recurring">Återkommande händelse:</label>
         <input type="checkbox" id="recurring" name="recurring">
@@ -97,3 +53,13 @@
     <script src="app.js"></script>
 </body>
 </html>
+
+Förklaringar:
+
+Textrutan: Lagt till en kortfattad instruktion med följande meddelande: "Om händelsen är återkommande, fyll i nedan. För enskilda händelser, klicka Generera. För flera, lägg till dem en och en. När alla är inlagda, klicka Generera."
+
+
+Den ligger precis ovanför de återkommande fälten, så att det är tydligt när man ska fylla i dem.
+
+Vill du testa detta och se om det fungerar som du tänkt?
+
