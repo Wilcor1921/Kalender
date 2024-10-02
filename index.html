@@ -1,39 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICS Calendar Generator</title>
+    <title>ICS Kalendergenerator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #downloadLink {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>ICS Calendar Generator</h1>
+    <h1>Generera ICS Kalender</h1>
     <form id="eventForm">
-        <label for="title">Event Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
+        <label for="title">Händelse Titel:</label>
+        <input type="text" id="title" name="title" required>
 
-        <label for="start">Start Date & Time:</label>
-        <input type="datetime-local" id="start" name="start" required><br><br>
+        <label for="start">Startdatum & tid:</label>
+        <input type="datetime-local" id="start" name="start" required>
 
-        <label for="end">End Date & Time:</label>
-        <input type="datetime-local" id="end" name="end" required><br><br>
+        <label for="end">Slutdatum & tid:</label>
+        <input type="datetime-local" id="end" name="end" required>
 
-        <label for="recurring">Recurring Event:</label>
-        <input type="checkbox" id="recurring" name="recurring"><br><br>
+        <label for="recurring">Återkommande händelse:</label>
+        <input type="checkbox" id="recurring" name="recurring">
 
-        <label for="frequency">Frequency (if recurring):</label>
+        <label for="frequency">Frekvens (om återkommande):</label>
         <select id="frequency" name="frequency">
-            <option value="DAILY">Daily</option>
-            <option value="WEEKLY">Weekly</option>
-            <option value="MONTHLY">Monthly</option>
-        </select><br><br>
+            <option value="DAILY">Dagligen</option>
+            <option value="WEEKLY">Veckovis</option>
+            <option value="MONTHLY">Månadsvis</option>
+        </select>
 
-        <label for="count">Occurrences (if recurring):</label>
-        <input type="number" id="count" name="count" min="1"><br><br>
+        <label for="count">Antal tillfällen (om återkommande):</label>
+        <input type="number" id="count" name="count" min="1">
 
-        <button type="button" onclick="generateICS()">Generate ICS</button>
+        <button type="button" onclick="addEvent()">Lägg till händelse</button>
+        <button type="button" onclick="generateICS()">Generera ICS</button>
     </form>
 
-    <a id="downloadLink" style="display:none;">Download ICS</a>
+    <a id="downloadLink" style="display:none;">Ladda ner din ICS-fil</a>
 
     <script src="app.js"></script>
 </body>
