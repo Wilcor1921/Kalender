@@ -42,11 +42,13 @@ button {
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
+    margin-bottom: 10px; /* Lägg till marginal mellan knapparna */
 }
 
 button:hover {
     background-color: #218838;
 }
+
 
 h2 {
     margin-top: 40px;
