@@ -11,28 +11,28 @@
         <h1>Kalendergenerator</h1>
 
         <div class="form-group">
-            <label for="event-title">Händelse Titel</label>
+            <label for="event-title">Händelse Titel:</label>
             <input type="text" id="event-title" placeholder="Skriv händelse titel...">
         </div>
 
         <div class="form-group">
-            <label for="start-datetime">Startdatum & tid</label>
+            <label for="start-datetime">Startdatum & tid:</label>
             <input type="datetime-local" id="start-datetime">
         </div>
 
         <div class="form-group">
-            <label for="end-datetime">Slutdatum & tid</label>
+            <label for="end-datetime">Slutdatum & tid:</label>
             <input type="datetime-local" id="end-datetime">
         </div>
 
         <div class="form-group">
-            <label for="recur-event">Återkommande händelse</label>
+            <label for="recur-event">Återkommande händelse:</label>
             <input type="checkbox" id="recur-event" onchange="toggleRecurOptions()">
         </div>
 
         <div id="recur-options" class="hidden">
             <div class="form-group">
-                <label for="frequency">Frekvens</label>
+                <label for="frequency">Frekvens:</label>
                 <select id="frequency">
                     <option value="daily">Dagligen</option>
                     <option value="weekly">Veckovis</option>
@@ -41,13 +41,13 @@
             </div>
 
             <div class="form-group">
-                <label for="occurrences">Antal tillfällen</label>
+                <label for="occurrences">Antal tillfällen:</label>
                 <input type="number" id="occurrences" placeholder="Ex: 5">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="filename">Filnamn (utan filändelse)</label>
+            <label for="filename">Filnamn (utan filändelse):</label>
             <input type="text" id="filename" placeholder="Skriv filnamn...">
         </div>
 
