@@ -5,58 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICS Kalendergenerator</title>
     <style>
-        /* Din befintliga CSS här */
+        /* Enkel CSS för att centrera formulär och lägga till marginaler */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #e7e7e7;
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        #downloadLink {
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>Generera ICS Kalender</h1>
-    <form id="eventForm">
-        <label for="title">Händelse Titel:</label>
-        <input type="text" id="title" name="title" required>
+    <div>
+        <h1>Generera ICS Kalender</h1>
+        <form id="eventForm">
+            <label for="title">Händelse Titel:</label>
+            <input type="text" id="title" name="title" required>
 
-        <label for="start">Startdatum & tid:</label>
-        <input type="datetime-local" id="start" name="start" required>
+            <label for="start">Startdatum & tid:</label>
+            <input type="datetime-local" id="start" name="start" required>
 
-        <label for="end">Slutdatum & tid:</label>
-        <input type="datetime-local" id="end" name="end" required>
+            <label for="end">Slutdatum & tid:</label>
+            <input type="datetime-local" id="end" name="end" required>
 
-        <div id="recurring-info">
-            <p>Om händelsen är återkommande, fyll i nedan. För en enskild händelse, klicka på Generera. För flera händelser vid olika dagar och tider, klicka på "Lägg till händelse". Tillagda händelser visas nedan i listan, och när alla är inlagda, klicka på Generera.</p>
-        </div>
+            <div id="recurring-info">
+                <p>Om händelsen är återkommande, fyll i nedan. För en enskild händelse, klicka på Generera. För flera händelser vid olika dagar och tider, klicka på "Lägg till händelse". Tillagda händelser visas nedan i listan, och när alla är inlagda, klicka på Generera.</p>
+            </div>
 
-        <label for="recurring">Återkommande händelse:</label>
-        <input type="checkbox" id="recurring" name="recurring">
-        <br>
-        <label for="frequency">Frekvens (om återkommande):</label>
-        <select id="frequency" name="frequency">
-            <option value="DAILY">Dagligen</option>
-            <option value="WEEKLY">Veckovis</option>
-            <option value="MONTHLY">Månadsvis</option>
-        </select>
+            <label for="recurring">Återkommande händelse:</label>
+            <input type="checkbox" id="recurring" name="recurring">
+            <br>
+            <label for="frequency">Frekvens (om återkommande):</label>
+            <select id="frequency" name="frequency">
+                <option value="DAILY">Dagligen</option>
+                <option value="WEEKLY">Veckovis</option>
+                <option value="MONTHLY">Månadsvis</option>
+            </select>
 
-        <label for="count">Antal tillfällen (om återkommande):</label>
-        <input type="number" id="count" name="count" min="1">
+            <label for="count">Antal tillfällen (om återkommande):</label>
+            <input type="number" id="count" name="count" min="1">
 
-        <button type="button" onclick="addEvent()">Lägg till händelse</button>
-        <button type="button" onclick="generateICS()">Generera ICS</button>
-    </form>
+            <button type="button" onclick="addEvent()">Lägg till händelse</button>
+            <button type="button" onclick="generateICS()">Generera ICS</button>
+        </form>
 
-    <h2>Tillagda händelser</h2>
-    <ul id="eventList"></ul>
+        <h2>Tillagda händelser</h2>
+        <ul id="eventList"></ul>
 
-    <a id="downloadLink" style="display:none;">Ladda ner din ICS-fil</a>
+        <a id="downloadLink" style="display:none;">Ladda ner din ICS-fil</a>
+    </div>
 
     <script src="app.js"></script>
-    <script>
-        document.getElementById("start").addEventListener("change", function() {
-            const startTime = new Date(this.value);
-            if (isNaN(startTime)) return;
-
-            const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
-            const formattedEndTime = endTime.toISOString().slice(0, 16);
-
-            document.getElementById("end").value = formattedEndTime;
-        });
-    </script>
 </body>
 </html>
