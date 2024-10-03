@@ -1,19 +1,5 @@
 let events = [];
 
-document.getElementById("start").addEventListener("change", function() {
-    const startTime = new Date(this.value);
-    if (isNaN(startTime)) return;  // Kontrollera om det är ett giltigt datum
-
-    // Justera sluttiden till 1 timme efter starttiden
-    const endTime = new Date(startTime.getTime() + (60 * 60 * 1000)); // Lägger till 1 timme (60 minuter * 60 sekunder * 1000 millisekunder)
-    
-    // Konvertera till en format som passar för input[type="datetime-local"]
-    const formattedEndTime = endTime.toISOString().slice(0, 16); // Formatet blir YYYY-MM-DDTHH:MM
-    
-    document.getElementById("end").value = formattedEndTime; // Sätt sluttiden till det formaterade värdet
-});
-
-
 function addEvent() {
     const title = document.getElementById('title').value;
     const startDate = new Date(document.getElementById('start').value);
@@ -54,6 +40,17 @@ function addEvent() {
     document.getElementById('count').value = '';
     document.getElementById('frequency').value = 'DAILY';
 }
+
+// Justera slutdatum automatiskt till en timme efter startdatum
+document.getElementById("start").addEventListener("change", function() {
+    const startTime = new Date(this.value);
+    if (isNaN(startTime)) return;  // Kontrollera om det är ett giltigt datum
+
+    const endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // Lägger till 1 timme
+    const formattedEndTime = endTime.toISOString().slice(0, 16);  // Formaterar till datetime-local
+
+    document.getElementById("end").value = formattedEndTime;    
+});
 
 function generateICS() {
     let icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Your Organization//Your Product//EN\n`;
