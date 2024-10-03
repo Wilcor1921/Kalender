@@ -1,111 +1,56 @@
-const addedEvents = [];
+let events = [];
 
-// Funktion för att lägga till händelse
-function addEvent() {
-    const eventTitle = document.getElementById("event-title").value;
-    const startDate = document.getElementById("start-datetime").value;
-    const endDate = document.getElementById("end-datetime").value;
+document.getElementById('add-event-button').addEventListener('click', function() {
+    const title = document.getElementById('event-title').value;
+    const startDatetime = new Date(document.getElementById('start-datetime').value);
+    const endDatetime = new Date(document.getElementById('end-datetime').value);
+    const recurEvent = document.getElementById('recur-event').checked;
+    const frequency = document.getElementById('frequency').value;
+    const occurrences = document.getElementById('occurrences').value;
 
-    if (!eventTitle || !startDate || !endDate) {
-        alert("Fyll i alla fält!");
+    if (!title || isNaN(startDatetime) || isNaN(endDatetime)) {
+        alert('Vänligen fyll i alla fält korrekt.');
         return;
     }
 
-    // Lägg till händelsen i listan
-    addedEvents.push({ title: eventTitle, start: startDate, end: endDate });
-    updateAddedEventsList();
+    let event = `BEGIN:VEVENT\nSUMMARY:${title}\nDTSTART:${startDatetime.toISOString().replace(/-|:|\.\d+/g, '')}\nDTEND:${endDatetime.toISOString().replace(/-|:|\.\d+/g, '')}\n`;
 
-    // Rensa inmatningsfält
-    document.getElementById("event-title").value = "";
-    document.getElementById("start-datetime").value = "";
-    document.getElementById("end-datetime").value = "";
-}
-function toggleRecurOptions() {
-    const recurOptions = document.getElementById('recur-options');
-    const recurEvent = document.getElementById('recur-event');
-    
-    if (recurEvent.checked) {
-        recurOptions.style.display = 'block';
-    } else {
-        recurOptions.style.display = 'none';
-    }
-}
-
-
-// Uppdatera listan med tillagda händelser
-function updateAddedEventsList() {
-    const eventsList = document.getElementById("added-events");
-    eventsList.innerHTML = ""; // Rensa listan
-
-    addedEvents.forEach((event, index) => {
-        const li = document.createElement("li");
-        li.textContent = `${event.title}: ${event.start} - ${event.end}`;
-        eventsList.appendChild(li);
-    });
-}
-
-// Funktion för att generera ICS fil
-function generateICS() {
-    if (addedEvents.length === 0) {
-        alert("Inga händelser att generera!");
-        return;
+    if (recurEvent) {
+        event += `RRULE:FREQ=${frequency.toUpperCase()};COUNT=${occurrences}\n`;
     }
 
-    let icsContent = `
-BEGIN:VCALENDAR
-VERSION:2.0
-CALSCALE:GREGORIAN
-`;
+    event += `END:VEVENT\n`;
+    events.push(event);
 
-    addedEvents.forEach(event => {
-        icsContent += `
-BEGIN:VEVENT
-SUMMARY:${event.title}
-DTSTART:${formatDateToICS(event.start)}
-DTEND:${formatDateToICS(event.end)}
-END:VEVENT
-`;
-    });
+    // Lägg till händelse till listan
+    const addedEvents = document.getElementById('added-events');
+    const li = document.createElement('li');
+    li.textContent = `Händelse: ${title}, Start: ${startDatetime.toLocaleString()}, Slut: ${endDatetime.toLocaleString()}`;
+    addedEvents.appendChild(li);
 
-    icsContent += `
-END:VCALENDAR
-`;
-
-    // Skapa en blob av ICS-innehållet
-    const blob = new Blob([icsContent], { type: 'text/calendar' });
-    const url = URL.createObjectURL(blob);
-
-    // Skapa en nedladdningslänk
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "events.ics";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-function toggleRecurOptions() {
-    const recurOptions = document.getElementById('recur-options');
-    const recurEvent = document.getElementById('recur-event');
-    
-    if (recurEvent.checked) {
-        recurOptions.style.display = 'block';
-    } else {
-        recurOptions.style.display = 'none';
-    }
-}
+    // Rensa formulärfälten efter tillägg
+    document.getElementById('event-title').value = '';
+    document.getElementById('start-datetime').value = '';
+    document.getElementById('end-datetime').value = '';
+    document.getElementById('recur-event').checked = false;
+    document.getElementById('recur-options').style.display = 'none';
+});
 
 document.getElementById('generate-ics-button').addEventListener('click', function() {
-    // Filnamnshantering
     let filename = document.getElementById('filename').value.trim();
     if (filename === "") {
         filename = "kalender";  // Standard filnamn om inget anges
     }
     filename += ".ics";  // Lägg till filändelsen
 
-    // Generera och ladda ner ICS-filen (simulerat här, byt ut enligt din logik)
-    const icsContent = generateICS();  // Här anropar du din funktion för att generera ICS-innehållet
+    let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//example//EN\n";
+
+    events.forEach(event => {
+        icsContent += event;
+    });
+
+    icsContent += "END:VCALENDAR";
+
     const blob = new Blob([icsContent], { type: 'text/calendar' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -113,22 +58,14 @@ document.getElementById('generate-ics-button').addEventListener('click', functio
     link.click();
 });
 
-// Dummy-funktion för att generera ICS-innehåll, ersätt med din befintliga logik
-function generateICS() {
-    return "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//example//EN\nEND:VCALENDAR";  // Detta är bara ett exempel
+// Funktion för att visa/dölja återkommande inställningar
+function toggleRecurOptions() {
+    const recurOptions = document.getElementById('recur-options');
+    const recurEvent = document.getElementById('recur-event');
+    
+    if (recurEvent.checked) {
+        recurOptions.style.display = 'block';
+    } else {
+        recurOptions.style.display = 'none';
+    }
 }
-
-// Funktion för att formatera datum till ICS format
-function formatDateToICS(dateString) {
-    const date = new Date(dateString);
-    const year = date.getUTCFullYear();
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // månader är 0-indexerade
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const hours = String(date.getUTCHours()).padStart(2, '0');
-    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-    return `${year}${month}${day}T${hours}${minutes}00Z`; // Lägg till 'Z' för UTC
-}
-
-// Event listeners för knapparna
-document.getElementById("add-event-button").addEventListener("click", addEvent);
-document.getElementById("generate-ics-button").addEventListener("click", generateICS);
