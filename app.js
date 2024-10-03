@@ -5,7 +5,7 @@ document.getElementById("start").addEventListener("change", function() {
     if (isNaN(startTime)) return;  // Kontrollera om det är ett giltigt datum
 
     // Justera sluttiden till 1 timme efter starttiden
-    const endTime = new Date(startTime.getTime() + (60 * 60 * 1000)); // Lägg till 1 timme (60 minuter * 60 sekunder * 1000 millisekunder)
+    const endTime = new Date(startTime.getTime() + (60 * 60 * 1000)); // Lägger till 1 timme (60 minuter * 60 sekunder * 1000 millisekunder)
     
     // Konvertera till en format som passar för input[type="datetime-local"]
     const formattedEndTime = endTime.toISOString().slice(0, 16); // Formatet blir YYYY-MM-DDTHH:MM
