@@ -3,112 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://github.com/Wilcor1921/Kalender/blob/eaf85697f839e57d7a0d82142de206e07f9886f6/styles.css">
     <title>Generera ICS Kalender</title>
-    <style>
-        /* Kopiera och klistra in all CSS-kod här */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f8fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #333;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 100%;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        h1 {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        input[type="text"],
-        input[type="datetime-local"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 5px;
-        }
-
-        input[type="checkbox"] {
-            margin-left: 10px;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 10px 15px;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            flex-grow: 1;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        h2 {
-            margin-top: 30px;
-            font-size: 18px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .button-group {
-                justify-content: flex-start;
-            }
-
-            button {
-                width: auto;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -120,33 +16,30 @@
         <label for="start-datetime">Startdatum & tid:</label>
         <input type="datetime-local" id="start-datetime">
 
-        <label for="duration">Längd på händelse:</label>
-        <select id="duration" onchange="updateEndDate()">
-            <option value="30">30 minuter</option>
-            <option value="60">1 timme</option>
-            <option value="90">1,5 timme</option>
-            <option value="120">2 timmar</option>
-            <option value="180">3 timmar</option>
-            <option value="1440">Heldag (24 timmar)</option>
+        <label for="duration">Slutdatum & tid:</label>
+        <select id="duration">
+            <option value="30min">30 minuter</option>
+            <option value="1h">1 timme</option>
+            <option value="1.5h">1,5 timme</option>
+            <option value="2h">2 timmar</option>
+            <option value="3h">3 timmar</option>
+            <option value="full-day">Heldag</option>
         </select>
 
-        <label for="end-datetime">Eller ange slutdatum & tid:</label>
-        <input type="datetime-local" id="end-datetime">
+        <label for="recur-event">Återkommande händelse:</label>
+        <input type="checkbox" id="recur-event" onchange="toggleRecurOptions()">
 
-      <label for="recur-event">Återkommande händelse:</label>
-<input type="checkbox" id="recur-event" onchange="toggleRecurOptions()">
+        <div id="recur-options" style="display: none;">
+            <label for="frequency">Frekvens (om återkommande):</label>
+            <select id="frequency">
+                <option value="daily">Dagligen</option>
+                <option value="weekly">Veckovis</option>
+                <option value="monthly">Månadsvis</option>
+            </select>
 
-<div id="recur-options" style="display: none;">
-    <label for="frequency">Frekvens (om återkommande):</label>
-    <select id="frequency">
-        <option value="daily">Dagligen</option>
-        <option value="weekly">Veckovis</option>
-        <option value="monthly">Månadsvis</option>
-    </select>
-
-    <label for="occurrences">Antal tillfällen (om återkommande):</label>
-    <input type="number" id="occurrences" placeholder="Ex: 5">
-</div>
+            <label for="occurrences">Antal tillfällen (om återkommande):</label>
+            <input type="number" id="occurrences" placeholder="Ex: 5">
+        </div>
         <br>
 
         <label for="filename">Filnamn (utan filändelse):</label>
@@ -159,6 +52,6 @@
         <ul id="added-events"></ul>
     </div>
 
-    <script src="https://github.com/Wilcor1921/Kalender/blob/e27cc29050469d201381478f5f0955189404e0d9/app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
