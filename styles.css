@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    justify-content: center; /* Centrera innehållet horisontellt */
+    align-items: center; /* Centrera innehållet vertikalt */
+    min-height: 100vh; /* Gör att sidan alltid täcker hela fönstret */
+    background-color: #f7f7f7; /* Ljus bakgrund för bättre kontrast */
+}
+
+form {
+    width: 90%; /* Tar upp 90% av fönstrets bredd */
+    max-width: 600px; /* Maximal bredd för formuläret */
+    margin: 20px auto; /* Marginaler för att centrera formuläret */
+    padding: 20px; /* Inre marginal för formuläret */
+    background-color: #fff; /* Vit bakgrund för formuläret */
+    border-radius: 10px; /* Rundade hörn */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Skugga för djup */
+}
+
+h1 {
+    text-align: center; /* Centrerar rubriken */
+}
+
+input, select {
+    width: 100%; /* Fyller hela bredden av formulärfält */
+    padding: 10px; /* Inre marginal för fälten */
+    margin: 10px 0; /* Marginal mellan fälten */
+    border: 1px solid #ccc; /* Lätt grå kantlinje */
+    border-radius: 5px; /* Rundade hörn på fälten */
+}
+
+button {
+    width: 100%; /* Fyller hela bredden av knappen */
+    padding: 15px; /* Inre marginal för knappen */
+    background-color: #4CAF50; /* Grön bakgrund för knappen */
+    color: white; /* Vit textfärg */
+    border: none; /* Ingen kantlinje */
+    border-radius: 5px; /* Rundade hörn på knappen */
+    cursor: pointer; /* Visar att knappen kan klickas */
+    font-size: 16px; /* Ökar teckenstorlek för bättre läsbarhet */
+}
+
+button:hover {
+    background-color: #45a049; /* Mörknar vid hover */
+}
