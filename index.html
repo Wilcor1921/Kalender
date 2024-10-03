@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generera ICS Kalender</title>
     <style>
         /* Kopiera och klistra in all CSS-kod här */
         * {
@@ -111,59 +109,51 @@
             }
         }
     </style>
-
-    
-    <title>Generera ICS Kalender</title>
 </head>
 <body>
     <div class="container">
-        <h1>Kalendergenerator</h1>
+        <h1>Generera ICS Kalender</h1>
 
-        <div class="form-group">
-            <label for="event-title">Händelse Titel:</label>
-            <input type="text" id="event-title" placeholder="Skriv händelse titel...">
+        <label for="event-title">Händelse Titel:</label>
+        <input type="text" id="event-title" placeholder="Skriv händelse titel här...">
+
+        <label for="start-datetime">Startdatum & tid:</label>
+        <input type="datetime-local" id="start-datetime">
+
+        <label for="duration">Längd på händelse:</label>
+        <select id="duration" onchange="updateEndDate()">
+            <option value="30">30 minuter</option>
+            <option value="60">1 timme</option>
+            <option value="90">1,5 timme</option>
+            <option value="120">2 timmar</option>
+            <option value="180">3 timmar</option>
+            <option value="1440">Heldag (24 timmar)</option>
+        </select>
+
+        <label for="end-datetime">Eller ange slutdatum & tid:</label>
+        <input type="datetime-local" id="end-datetime">
+
+        <label for="recur-event">Återkommande händelse:</label>
+        <input type="checkbox" id="recur-event" onchange="toggleRecurOptions()">
+
+        <div id="recur-options" style="display: none;">
+            <label for="frequency">Frekvens (om återkommande):</label>
+            <select id="frequency">
+                <option value="daily">Dagligen</option>
+                <option value="weekly">Veckovis</option>
+                <option value="monthly">Månadsvis</option>
+            </select>
+
+            <label for="occurrences">Antal tillfällen (om återkommande):</label>
+            <input type="number" id="occurrences" placeholder="Ex: 5">
         </div>
+        <br>
 
-        <div class="form-group">
-            <label for="start-datetime">Startdatum & tid:</label>
-            <input type="datetime-local" id="start-datetime">
-        </div>
+        <label for="filename">Filnamn (utan filändelse):</label>
+        <input type="text" id="filename" placeholder="Skriv filnamnet här...">
 
-        <div class="form-group">
-            <label for="end-datetime">Slutdatum & tid:</label>
-            <input type="datetime-local" id="end-datetime">
-        </div>
-
-        <div class="form-group">
-            <label for="recur-event">Återkommande händelse:</label>
-            <input type="checkbox" id="recur-event" onchange="toggleRecurOptions()">
-        </div>
-
-        <div id="recur-options" class="hidden">
-            <div class="form-group">
-                <label for="frequency">Frekvens:</label>
-                <select id="frequency">
-                    <option value="daily">Dagligen</option>
-                    <option value="weekly">Veckovis</option>
-                    <option value="monthly">Månadsvis</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="occurrences">Antal tillfällen:</label>
-                <input type="number" id="occurrences" placeholder="Ex: 5">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="filename">Filnamn (utan filändelse):</label>
-            <input type="text" id="filename" placeholder="Skriv filnamn...">
-        </div>
-
-        <div class="button-group">
-            <button id="add-event-button">Lägg till händelse</button>
-            <button id="generate-ics-button">Generera ICS</button>
-        </div>
+        <button id="add-event-button">Lägg till händelse</button>
+        <button id="generate-ics-button">Generera ICS</button>
 
         <h2>Tillagda händelser</h2>
         <ul id="added-events"></ul>
