@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viktigt för responsivitet -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css"> <!-- Din CSS-fil -->
-    <title>ICS Kalender</title>
+    <title>Generera ICS Kalender</title>
 </head>
 <body>
     <div class="container">
         <h1>Generera ICS Kalender</h1>
-        <input type="text" placeholder="Händelse Titel:">
+
+        <label for="event-title">Händelse Titel:</label>
+        <input type="text" id="event-title" placeholder="Skriv händelse titel här">
+
         <label for="start-datum">Startdatum & tid:</label>
         <input type="datetime-local" id="start-datum">
+
         <label for="slut-datum">Slutdatum & tid:</label>
         <input type="datetime-local" id="slut-datum">
-        <!-- Lägg till fler fält som behövs -->
-        <button>Lägg till händelse</button>
-        <ul class="event-list">
+
+        <label for="recurring">
+            <input type="checkbox" id="recurring"> Om händelsen är återkommande, fyll i nedan:
+        </label>
+        
+        <div id="recurring-options" style="display:none;">
+            <label for="frequency">Frekvens:</label>
+            <select id="frequency">
+                <option value="daily">Dagligen</option>
+                <option value="weekly">Veckovis</option>
+                <option value="monthly">Månatligen</option>
+                <option value="yearly">Årligen</option>
+            </select>
+            <label for="occurrences">Antal tillfällen:</label>
+            <input type="number" id="occurrences" placeholder="Ex: 5">
+        </div>
+
+        <button id="add-event">Lägg till händelse</button>
+        <button id="generate-ics">Generera ICS</button>
+
+        <h2>Tillagda händelser</h2>
+        <ul class="event-list" id="event-list">
             <!-- Dynamiskt tillagda händelser visas här -->
         </ul>
     </div>
+    
     <script src="app.js"></script> <!-- Din JavaScript-fil -->
 </body>
 </html>
