@@ -85,6 +85,39 @@ END:VCALENDAR
     URL.revokeObjectURL(url);
 }
 
+function toggleRecurOptions() {
+    const recurOptions = document.getElementById('recur-options');
+    const recurEvent = document.getElementById('recur-event');
+    
+    if (recurEvent.checked) {
+        recurOptions.style.display = 'block';
+    } else {
+        recurOptions.style.display = 'none';
+    }
+}
+
+document.getElementById('generate-ics-button').addEventListener('click', function() {
+    // Filnamnshantering
+    let filename = document.getElementById('filename').value.trim();
+    if (filename === "") {
+        filename = "kalender";  // Standard filnamn om inget anges
+    }
+    filename += ".ics";  // Lägg till filändelsen
+
+    // Generera och ladda ner ICS-filen (simulerat här, byt ut enligt din logik)
+    const icsContent = generateICS();  // Här anropar du din funktion för att generera ICS-innehållet
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+});
+
+// Dummy-funktion för att generera ICS-innehåll, ersätt med din befintliga logik
+function generateICS() {
+    return "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//example//EN\nEND:VCALENDAR";  // Detta är bara ett exempel
+}
+
 // Funktion för att formatera datum till ICS format
 function formatDateToICS(dateString) {
     const date = new Date(dateString);
