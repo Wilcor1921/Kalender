@@ -1,70 +1,90 @@
-/* Grundläggande stilar för sidan */
-body {
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
 
-.container {
-    width: 90%;
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Titel och rubriker */
-h1, h2 {
-    text-align: center;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     color: #333;
 }
 
-/* Formulärfält och knappar */
-input, button, select {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
 }
 
-/* Stil för knapparna */
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+input[type="checkbox"] {
+    margin-left: 10px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
 button {
-    background-color: #5cb85c;
-    color: white;
+    padding: 10px 15px;
     border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #0056b3;
 }
 
-/* Lista för tillagda händelser */
-#added-events {
+h2 {
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+ul {
     list-style-type: none;
-    padding: 0;
 }
 
-#added-events li {
-    padding: 10px;
-    background-color: #eef;
-    margin-bottom: 5px;
-    border-radius: 5px;
-}
-
-/* Responsiva stilar för mobil */
-@media (max-width: 600px) {
-    .container {
-        width: 95%;
-    }
-
-    input, button, select {
-        width: calc(100% - 10px);
-    }
+.hidden {
+    display: none;
 }
