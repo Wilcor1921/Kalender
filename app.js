@@ -83,3 +83,34 @@ function toggleRecurOptions() {
     }
 }
 ;
+
+function toggleRecurOptions() {
+    const recurOptions = document.getElementById('recur-options');
+    const recurCheckbox = document.getElementById('recur-event');
+
+    // Växla visningen av återkommande alternativ
+    if (recurCheckbox.checked) {
+        recurOptions.style.display = 'block';
+    } else {
+        recurOptions.style.display = 'none';
+    }
+}
+
+// Lägga till händelser i listan
+document.getElementById('add-event-button').addEventListener('click', function() {
+    const title = document.getElementById('event-title').value;
+    const startDateTime = document.getElementById('start-datetime').value;
+    const duration = document.getElementById('duration').value;
+
+    if (title && startDateTime) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Titel: ${title}, Start: ${startDateTime}, Varaktighet: ${duration}`;
+        document.getElementById('added-events').appendChild(listItem);
+        // Återställ fälten
+        document.getElementById('event-title').value = '';
+        document.getElementById('start-datetime').value = '';
+    } else {
+        alert('Vänligen fyll i både titel och startdatum.');
+    }
+});
+
