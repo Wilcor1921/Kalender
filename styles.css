@@ -1,3 +1,4 @@
+/* Grundläggande stilar för sidan */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,21 +9,30 @@ body {
 .container {
     width: 90%;
     max-width: 600px;
-    margin: 20px auto;
+    margin: 40px auto;
     padding: 20px;
     background: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-input, button {
-    width: 100%;
+/* Titel och rubriker */
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Formulärfält och knappar */
+input, button, select {
+    width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
+/* Stil för knapparna */
 button {
     background-color: #5cb85c;
     color: white;
@@ -32,4 +42,28 @@ button {
 
 button:hover {
     background-color: #4cae4c;
+}
+
+/* Lista för tillagda händelser */
+#added-events {
+    list-style-type: none;
+    padding: 0;
+}
+
+#added-events li {
+    padding: 10px;
+    background-color: #eef;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+/* Responsiva stilar för mobil */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+
+    input, button, select {
+        width: calc(100% - 10px);
+    }
 }
