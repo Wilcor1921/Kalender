@@ -1,44 +1,52 @@
 body {
-    display: flex;
-    justify-content: center; /* Centrera innehållet horisontellt */
-    align-items: center; /* Centrera innehållet vertikalt */
-    min-height: 100vh; /* Gör att sidan alltid täcker hela fönstret */
-    background-color: #f7f7f7; /* Ljus bakgrund för bättre kontrast */
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-form {
-    width: 90%; /* Tar upp 90% av fönstrets bredd */
-    max-width: 600px; /* Maximal bredd för formuläret */
-    margin: 20px auto; /* Marginaler för att centrera formuläret */
-    padding: 20px; /* Inre marginal för formuläret */
-    background-color: #fff; /* Vit bakgrund för formuläret */
-    border-radius: 10px; /* Rundade hörn */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Skugga för djup */
+.container {
+    width: 90%; /* Använd procentuell bredd för responsivitet */
+    max-width: 800px; /* Maxbredd för större skärmar */
+    margin: 0 auto;
+    padding: 20px;
 }
 
 h1 {
-    text-align: center; /* Centrera rubriken */
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-input, select {
-    width: 100%; /* Fyller hela bredden av formulärfält */
-    padding: 10px; /* Inre marginal för fälten */
-    margin: 10px 0; /* Marginal mellan fälten */
-    border: 1px solid #ccc; /* Lätt grå kantlinje */
-    border-radius: 5px; /* Rundade hörn på fälten */
+input[type="text"],
+input[type="datetime-local"],
+select,
+button {
+    width: 100%; /* Full bredd för alla inmatningsfält */
+    padding: 10px;
+    margin-bottom: 10px; /* Utrymme mellan fälten */
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
-    width: 100%; /* Fyller hela bredden av knappen */
-    padding: 15px; /* Inre marginal för knappen */
-    background-color: #4CAF50; /* Grön bakgrund för knappen */
-    color: white; /* Vit textfärg */
-    border: none; /* Ingen kantlinje */
-    border-radius: 5px; /* Rundade hörn på knappen */
-    cursor: pointer; /* Visar att knappen kan klickas */
-    font-size: 16px; /* Ökar teckenstorlek för bättre läsbarhet */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #45a049; /* Mörknar vid hover */
+    background-color: #218838; /* Mörkare grön vid hover */
+}
+
+.event-list {
+    margin-top: 20px;
+    list-style: none; /* Ingen punktlista */
+    padding: 0;
+}
+
+.event-list li {
+    padding: 10px;
+    border: 1px solid #ddd; /* Tunn kantlinje */
+    border-radius: 5px;
+    margin-bottom: 10px; /* Utrymme mellan händelser */
 }
