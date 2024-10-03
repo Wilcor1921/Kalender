@@ -1,5 +1,7 @@
-// Funktion för att generera ICS fil
-function generateICS() {
+const addedEvents = [];
+
+// Funktion för att lägga till händelse
+function addEvent() {
     const eventTitle = document.getElementById("event-title").value;
     const startDate = document.getElementById("start-datetime").value;
     const endDate = document.getElementById("end-datetime").value;
@@ -9,16 +11,52 @@ function generateICS() {
         return;
     }
 
-    // Format av ICS-fil
-    const icsContent = `
+    // Lägg till händelsen i listan
+    addedEvents.push({ title: eventTitle, start: startDate, end: endDate });
+    updateAddedEventsList();
+
+    // Rensa inmatningsfält
+    document.getElementById("event-title").value = "";
+    document.getElementById("start-datetime").value = "";
+    document.getElementById("end-datetime").value = "";
+}
+
+// Uppdatera listan med tillagda händelser
+function updateAddedEventsList() {
+    const eventsList = document.getElementById("added-events");
+    eventsList.innerHTML = ""; // Rensa listan
+
+    addedEvents.forEach((event, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${event.title}: ${event.start} - ${event.end}`;
+        eventsList.appendChild(li);
+    });
+}
+
+// Funktion för att generera ICS fil
+function generateICS() {
+    if (addedEvents.length === 0) {
+        alert("Inga händelser att generera!");
+        return;
+    }
+
+    let icsContent = `
 BEGIN:VCALENDAR
 VERSION:2.0
 CALSCALE:GREGORIAN
+`;
+
+    addedEvents.forEach(event => {
+        icsContent += `
 BEGIN:VEVENT
-SUMMARY:${eventTitle}
-DTSTART:${formatDateToICS(startDate)}
-DTEND:${formatDateToICS(endDate)}
+SUMMARY:${event.title}
+DTSTART:${formatDateToICS(event.start)}
+DTEND:${formatDateToICS(event.end)}
 END:VEVENT
+`;
+    });
+
+    icsContent += `
 END:VCALENDAR
 `;
 
@@ -29,7 +67,7 @@ END:VCALENDAR
     // Skapa en nedladdningslänk
     const a = document.createElement("a");
     a.href = url;
-    a.download = "event.ics";
+    a.download = "events.ics";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -47,5 +85,6 @@ function formatDateToICS(dateString) {
     return `${year}${month}${day}T${hours}${minutes}00Z`; // Lägg till 'Z' för UTC
 }
 
-// Event listener för att hantera knappen
+// Event listeners för knapparna
+document.getElementById("add-event-button").addEventListener("click", addEvent);
 document.getElementById("generate-ics-button").addEventListener("click", generateICS);
