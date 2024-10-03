@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css"> <!-- Din CSS-fil -->
-    <title>Generera ICS Kalender</title>
+    <title>Generera Kalender inbjudan</title>
 </head>
 <body>
     <div class="container">
-        <h1>Generera ICS Kalender</h1>
+        <h1>Skapa Kalenderinbjudan</h1>
 
         <label for="event-title">Händelse Titel:</label>
         <input type="text" id="event-title" placeholder="Skriv händelse titel här">
@@ -21,7 +21,7 @@
         <input type="datetime-local" id="slut-datum">
 
         <label for="recurring">
-            <input type="checkbox" id="recurring"> Kryssa i om händelsen är återkommande & fyll i nedan:
+            <input type="checkbox" id="recurring"> Kryssa i om händelsen är återkommande
         </label>
         
         <div id="recurring-options" style="display:none;">
@@ -37,7 +37,7 @@
         </div>
 
         <button id="add-event">Lägg till händelse</button>
-        <button id="generate-ics">Generera ICS</button>
+        <button id="generate-ics">Generera ICS-fil</button>
 
         <h2>Tillagda händelser</h2>
         <ul class="event-list" id="event-list">
