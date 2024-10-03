@@ -20,6 +20,17 @@ function addEvent() {
     document.getElementById("start-datetime").value = "";
     document.getElementById("end-datetime").value = "";
 }
+function toggleRecurOptions() {
+    const recurOptions = document.getElementById('recur-options');
+    const recurEvent = document.getElementById('recur-event');
+    
+    if (recurEvent.checked) {
+        recurOptions.style.display = 'block';
+    } else {
+        recurOptions.style.display = 'none';
+    }
+}
+
 
 // Uppdatera listan med tillagda händelser
 function updateAddedEventsList() {
