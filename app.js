@@ -1,5 +1,15 @@
 let events = [];
 
+document.getElementById("start").addEventListener("change", function() {
+    const startTime = new Date(this.value);
+    if (isNaN(startTime)) return;  // Kontrollera om det är ett giltigt datum
+
+    const endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // Lägger till 1 timme
+    const formattedEndTime = endTime.toISOString().slice(0, 16);  // Formaterar till datetime-local
+
+    document.getElementById("end").value = formattedEndTime;    
+});
+
 function addEvent() {
     const title = document.getElementById('title').value;
     const startDate = new Date(document.getElementById('start').value);
@@ -19,18 +29,6 @@ function addEvent() {
         event += `RRULE:FREQ=${frequency};COUNT=${count}\n`;
     }
 
-    document.getElementById("start").addEventListener("change", function() {
-    const startTime = new Date(this.value);
-    if (isNaN(startTime)) return;  // Kontrollera om det är ett giltigt datum
-
-    const endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // Lägger till 1 timme
-    const formattedEndTime = endTime.toISOString().slice(0, 16);  // Formaterar till datetime-local
-
-    document.getElementById("end").value = formattedEndTime;    
-    });
-
-
-    
     event += `END:VEVENT\n`;
 
     events.push(event);
