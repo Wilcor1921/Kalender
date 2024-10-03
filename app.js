@@ -19,6 +19,18 @@ function addEvent() {
         event += `RRULE:FREQ=${frequency};COUNT=${count}\n`;
     }
 
+    document.getElementById("start").addEventListener("change", function() {
+    const startTime = new Date(this.value);
+    if (isNaN(startTime)) return;  // Kontrollera om det är ett giltigt datum
+
+    const endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // Lägger till 1 timme
+    const formattedEndTime = endTime.toISOString().slice(0, 16);  // Formaterar till datetime-local
+
+    document.getElementById("end").value = formattedEndTime;    
+    });
+
+
+    
     event += `END:VEVENT\n`;
 
     events.push(event);
@@ -55,7 +67,7 @@ function generateICS() {
 
     const downloadLink = document.getElementById('downloadLink');
     downloadLink.href = url;
-    downloadLink.download = 'events.ics';
+    downloadLink.download = 'Kalenderinbjudan.ics';
     downloadLink.style.display = 'block';
     downloadLink.textContent = 'Ladda ner din ICS-fil';
 }
