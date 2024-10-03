@@ -57,14 +57,14 @@
             display: block;
             text-align: center;
             margin-top: 20px;
+        }
 
-            label[for="recurring"], input[type="checkbox"] {
-    display: inline-block; /* Gör att checkboxen och etiketten kan justeras tillsammans */
-    vertical-align: middle; /* Justerar checkboxen och etiketten vertikalt */
-    margin-right: 10px; /* Lägger till lite utrymme mellan checkboxen och etiketten */
-}
-
-        
+        /* Fixar layout för checkboxen */
+        label[for="recurring"], input[type="checkbox"] {
+            display: inline-block; /* Gör att checkboxen och etiketten kan justeras tillsammans */
+            vertical-align: middle; /* Justerar checkboxen och etiketten vertikalt */
+            margin-right: 10px; /* Lägger till lite utrymme mellan checkboxen och etiketten */
+        }
     </style>
 </head>
 <body>
@@ -79,7 +79,7 @@
         <label for="end">Slutdatum & tid:</label>
         <input type="datetime-local" id="end" name="end" required>
 
-          <div id="recurring-info">
+        <div id="recurring-info">
             <p>Om händelsen är återkommande, fyll i nedan. För en enskild händelse, klicka på Generera. För flera händelser vid olika dagar och tider, klicka på "Lägg till händelse". Tillagda händelser visas nedan i listan, och när alla är inlagda, klicka på Generera.</p>
         </div>
 
