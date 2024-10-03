@@ -1,37 +1,51 @@
-document.getElementById('recurring').addEventListener('change', function() {
-    const recurringOptions = document.getElementById('recurring-options');
-    if (this.checked) {
-        recurringOptions.style.display = 'block';
-    } else {
-        recurringOptions.style.display = 'none';
+// Funktion för att generera ICS fil
+function generateICS() {
+    const eventTitle = document.getElementById("event-title").value;
+    const startDate = document.getElementById("start-datetime").value;
+    const endDate = document.getElementById("end-datetime").value;
+
+    if (!eventTitle || !startDate || !endDate) {
+        alert("Fyll i alla fält!");
+        return;
     }
-});
 
-// Funktion för att lägga till händelse
-document.getElementById('add-event').addEventListener('click', function() {
-    const title = document.getElementById('event-title').value;
-    const start = document.getElementById('start-datum').value;
-    const end = document.getElementById('slut-datum').value;
+    // Format av ICS-fil
+    const icsContent = `
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+SUMMARY:${eventTitle}
+DTSTART:${formatDateToICS(startDate)}
+DTEND:${formatDateToICS(endDate)}
+END:VEVENT
+END:VCALENDAR
+`;
 
-    // Kontrollera om sluttid ska justeras
-    if (start) {
-        const startDate = new Date(start);
-        const adjustedEnd = new Date(startDate);
-        adjustedEnd.setHours(adjustedEnd.getHours() + 1); // Justera till en timme senare
+    // Skapa en blob av ICS-innehållet
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
 
-        document.getElementById('slut-datum').value = adjustedEnd.toISOString().slice(0, 16); // Justera sluttiden
+    // Skapa en nedladdningslänk
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "event.ics";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
 
-        const eventList = document.getElementById('event-list');
-        const li = document.createElement('li');
-        li.textContent = `Titel: ${title}, Start: ${start}, Slut: ${adjustedEnd.toISOString().slice(0, 16)}`;
-        eventList.appendChild(li);
-    } else {
-        alert("Vänligen ange en starttid.");
-    }
-});
+// Funktion för att formatera datum till ICS format
+function formatDateToICS(dateString) {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // månader är 0-indexerade
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const hours = String(date.getUTCHours()).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    return `${year}${month}${day}T${hours}${minutes}00Z`; // Lägg till 'Z' för UTC
+}
 
-// Funktion för att generera ICS
-document.getElementById('generate-ics').addEventListener('click', function() {
-    // Här skulle du lägga till logik för att generera en ICS-fil
-    alert("ICS-fil skulle genereras här.");
-});
+// Event listener för att hantera knappen
+document.getElementById("generate-ics-button").addEventListener("click", generateICS);
