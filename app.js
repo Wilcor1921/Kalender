@@ -58,3 +58,15 @@ document.getElementById('generate-ics-button').addEventListener('click', functio
     link.download = `${filename}.ics`;
     link.click();
 });
+
+function updateEndDate() {
+    const startDatetime = new Date(document.getElementById('start-datetime').value);
+    const duration = parseInt(document.getElementById('duration').value);
+    
+    if (!isNaN(startDatetime)) {
+        // Beräkna slutdatum baserat på valda minuter
+        const endDatetime = new Date(startDatetime.getTime() + duration * 60000);
+        document.getElementById('end-datetime').value = endDatetime.toISOString().slice(0, 16);
+    }
+}
+;
