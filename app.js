@@ -70,3 +70,16 @@ function updateEndDate() {
     }
 }
 ;
+
+function toggleRecurOptions() {
+    const recurOptions = document.getElementById('recur-options');
+    const recurCheckbox = document.getElementById('recur-event');
+
+    // Växla visningen av återkommande alternativ
+    if (recurCheckbox.checked) {
+        recurOptions.style.display = 'block';
+    } else {
+        recurOptions.style.display = 'none';
+    }
+}
+;
