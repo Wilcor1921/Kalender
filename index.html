@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"> <!-- Koppla CSS-filen korrekt -->
+    <link rel="stylesheet" href="style.css">
     <title>Generera ICS Kalender</title>
 </head>
 <body>
@@ -34,6 +34,10 @@
             <input type="number" id="occurrences" placeholder="Ex: 5">
         </div>
 
+        <!-- Nytt fält för att ange filnamn -->
+        <label for="filename">Filnamn (utan filändelse):</label>
+        <input type="text" id="filename" placeholder="Skriv filnamnet här...">
+
         <button id="add-event-button">Lägg till händelse</button>
         <button id="generate-ics-button">Generera ICS</button>
 
@@ -41,6 +45,6 @@
         <ul id="added-events"></ul>
     </div>
 
-    <script src="app.js"></script> <!-- Lägg in detta på slutet så att JS laddas korrekt -->
+    <script src="app.js"></script>
 </body>
 </html>
