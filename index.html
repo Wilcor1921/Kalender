@@ -5,68 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICS Kalendergenerator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            font-weight: bold;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        #eventList {
-            margin-top: 20px;
-            padding: 0;
-            list-style-type: none;
-        }
-        #eventList li {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        #downloadLink {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* Fixar layout för checkboxen */
-        label[for="recurring"], input[type="checkbox"] {
-            display: inline-block; /* Gör att checkboxen och etiketten kan justeras tillsammans */
-            vertical-align: middle; /* Justerar checkboxen och etiketten vertikalt */
-            margin-right: 10px; /* Lägger till lite utrymme mellan checkboxen och etiketten */
-            text-align: left;
-            width: auto;
-        }
+        /* Din befintliga CSS här */
     </style>
 </head>
 <body>
@@ -108,5 +47,16 @@
     <a id="downloadLink" style="display:none;">Ladda ner din ICS-fil</a>
 
     <script src="app.js"></script>
+    <script>
+        document.getElementById("start").addEventListener("change", function() {
+            const startTime = new Date(this.value);
+            if (isNaN(startTime)) return;
+
+            const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
+            const formattedEndTime = endTime.toISOString().slice(0, 16);
+
+            document.getElementById("end").value = formattedEndTime;
+        });
+    </script>
 </body>
 </html>
