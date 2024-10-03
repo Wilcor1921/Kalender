@@ -52,6 +52,16 @@ document.getElementById("start").addEventListener("change", function() {
     document.getElementById("end").value = formattedEndTime;    
 });
 
+// Se till att rätt sluttid sätts när appen startas
+function setInitialEndTime() {
+    const startInput = document.getElementById("start");
+    if (startInput.value) {
+        startInput.dispatchEvent(new Event("change"));
+    }
+}
+
+window.onload = setInitialEndTime;
+
 function generateICS() {
     let icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Your Organization//Your Product//EN\n`;
     
