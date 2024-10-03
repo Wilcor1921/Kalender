@@ -55,19 +55,6 @@ function addEvent() {
     document.getElementById('frequency').value = 'DAILY';
 }
 
-form {
-    width: 100%; /* Formuläret tar upp hela bredden på små skärmar */
-    max-width: 33%; /* Maximal bredd är 33% av fönstret på större skärmar */
-    min-width: 300px; /* För att det inte ska bli för litet på små skärmar */
-    margin: 0 auto; /* Centrerar formuläret på sidan */
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-
-
 function generateICS() {
     let icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Your Organization//Your Product//EN\n`;
     
