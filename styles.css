@@ -12,15 +12,17 @@ body {
     align-items: center;
     height: 100vh;
     color: #333;
+    padding: 10px;
 }
 
 .container {
     background-color: #fff;
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
+    max-width: 100%;
     width: 100%;
+    margin: 20px;
 }
 
 h1 {
@@ -31,10 +33,11 @@ h1 {
 
 .form-group {
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
-    display: block;
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 14px;
@@ -58,7 +61,8 @@ input[type="checkbox"] {
 
 .button-group {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
     margin-top: 20px;
 }
 
@@ -70,6 +74,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    width: 100%;
 }
 
 button:hover {
@@ -89,3 +94,17 @@ ul {
     display: none;
 }
 
+@media (min-width: 768px) {
+    .container {
+        max-width: 500px;
+    }
+
+    .button-group {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    button {
+        width: auto;
+    }
+}
