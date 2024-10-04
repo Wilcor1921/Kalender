@@ -1,116 +1,77 @@
 let events = [];
 
-function toggleRecurOptions() {
-    const recurOptions = document.getElementById('recur-options');
-    recurOptions.classList.toggle('hidden');
-}
-
-document.getElementById('add-event-button').addEventListener('click', function() {
+function addEvent() {
     const title = document.getElementById('event-title').value;
-    const start = document.getElementById('start-datetime').value;
-    const end = document.getElementById('end-datetime').value;
+    const startDate = new Date(document.getElementById('start-datetime').value);
+    const endDate = new Date(document.getElementById('end-datetime').value);
+    
+    // Kontrollera att start- och sluttid är ifyllda
+    if (!startDate || !endDate || isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        alert('Vänligen fyll i både start- och sluttid.');
+        return;
+    }
+
+    const start = startDate.toISOString().replace(/-|:|\.\d+/g, '');
+    const end = endDate.toISOString().replace(/-|:|\.\d+/g, '');
     const recurring = document.getElementById('recur-event').checked;
     const frequency = document.getElementById('frequency').value;
-    const occurrences = document.getElementById('occurrences').value;
+    const occurrences = document.getElementById('occurrences').value || '';
 
-    let eventDetails = {
-        title,
-        start,
-        end,
-        recurring: recurring ? { frequency, occurrences } : null
-    };
+    let event = `BEGIN:VEVENT\nUID:${Date.now()}@yourdomain.com\n`;
+    event += `DTSTAMP:${new Date().toISOString().replace(/-|:|\.\d+/g, '')}\n`;
+    event += `DTSTART:${start}\nDTEND:${end}\n`;
+    event += `SUMMARY:${title}\n`;
 
-    events.push(eventDetails);
-    displayEvents();
-});
-
-function displayEvents() {
-    const eventList = document.getElementById('added-events');
-    eventList.innerHTML = '';
-
-    events.forEach((event, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${event.title} | Start: ${event.start} | Slut: ${event.end}`;
-        if (event.recurring) {
-            li.textContent += ` | Frekvens: ${event.recurring.frequency} | Antal: ${event.recurring.occurrences}`;
+    // Om det är återkommande, lägg till RRULE
+    if (recurring) {
+        event += `RRULE:FREQ=${frequency.toUpperCase()}`;
+        if (occurrences) {
+            event += `;COUNT=${occurrences}`;
         }
-        eventList.appendChild(li);
-    });
+        event += '\n';
+    }
+
+    event += `END:VEVENT\n`;
+
+    // Lägg till eventet i arrayen
+    events.push(event);
+
+    // Uppdatera tillagda händelser på sidan
+    const eventList = document.getElementById('added-events');
+    const li = document.createElement('li');
+    li.textContent = `Titel: ${title}, Start: ${startDate.toLocaleString()}, Slut: ${endDate.toLocaleString()}`;
+    if (recurring) {
+        li.textContent += `, Frekvens: ${frequency}, Antal tillfällen: ${occurrences}`;
+    }
+    eventList.appendChild(li);
+
+    // Rensa formulärfält efter tillägg
+    document.getElementById('event-title').value = '';
+    document.getElementById('start-datetime').value = '';
+    document.getElementById('end-datetime').value = '';
+    document.getElementById('recur-event').checked = false;
+    document.getElementById('occurrences').value = '';
+    document.getElementById('frequency').value = 'daily';
+    document.getElementById('recur-options').style.display = 'none';
 }
 
-document.getElementById('generate-ics-button').addEventListener('click', function() {
+function generateICS() {
     let icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Your Organization//EN\n`;
 
     events.forEach(event => {
-        icsContent += `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${event.start.replace(/-|:|\.\d+/g, '')}\nDTEND:${event.end.replace(/-|:|\.\d+/g, '')}\n`;
-        if (event.recurring) {
-            icsContent += `RRULE:FREQ=${event.recurring.frequency.toUpperCase()};COUNT=${event.recurring.occurrences}\n`;
-        }
-        icsContent += `END:VEVENT\n`;
+        icsContent += event;
     });
 
     icsContent += `END:VCALENDAR`;
 
+    // Skapa en fil och tillåt nedladdning
     const blob = new Blob([icsContent], { type: 'text/calendar' });
-    const filename = document.getElementById('filename').value || 'kalender';
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${filename}.ics`;
-    link.click();
-});
+    const url = URL.createObjectURL(blob);
 
-function updateEndDate() {
-    const startDatetime = new Date(document.getElementById('start-datetime').value);
-    const duration = parseInt(document.getElementById('duration').value);
-    
-    if (!isNaN(startDatetime)) {
-        // Beräkna slutdatum baserat på valda minuter
-        const endDatetime = new Date(startDatetime.getTime() + duration * 60000);
-        document.getElementById('end-datetime').value = endDatetime.toISOString().slice(0, 16);
-    }
+    const filename = document.getElementById('filename').value || 'kalenderfil';
+    const downloadLink = document.getElementById('download-link');
+    downloadLink.href = url;
+    downloadLink.download = `${filename}.ics`;
+    downloadLink.style.display = 'block';
+    downloadLink.textContent = 'Ladda ner din ICS-fil';
 }
-;
-
-function toggleRecurOptions() {
-    const recurOptions = document.getElementById('recur-options');
-    const recurCheckbox = document.getElementById('recur-event');
-
-    // Växla visningen av återkommande alternativ
-    if (recurCheckbox.checked) {
-        recurOptions.style.display = 'block';
-    } else {
-        recurOptions.style.display = 'none';
-    }
-}
-;
-
-function toggleRecurOptions() {
-    const recurOptions = document.getElementById('recur-options');
-    const recurCheckbox = document.getElementById('recur-event');
-
-    // Växla visningen av återkommande alternativ
-    if (recurCheckbox.checked) {
-        recurOptions.style.display = 'block';
-    } else {
-        recurOptions.style.display = 'none';
-    }
-}
-
-// Lägga till händelser i listan
-document.getElementById('add-event-button').addEventListener('click', function() {
-    const title = document.getElementById('event-title').value;
-    const startDateTime = document.getElementById('start-datetime').value;
-    const duration = document.getElementById('duration').value;
-
-    if (title && startDateTime) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `Titel: ${title}, Start: ${startDateTime}, Varaktighet: ${duration}`;
-        document.getElementById('added-events').appendChild(listItem);
-        // Återställ fälten
-        document.getElementById('event-title').value = '';
-        document.getElementById('start-datetime').value = '';
-    } else {
-        alert('Vänligen fyll i både titel och startdatum.');
-    }
-});
-
