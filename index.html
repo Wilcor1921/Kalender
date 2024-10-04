@@ -51,8 +51,10 @@
         <label for="filename">Filnamn (typ: träningar, möten-24 etc):</label>
         <input type="text" id="filename" placeholder="Skriv filnamnet här...">
 
-        <button id="add-event-button">Lägg till händelse</button>
-        <button id="generate-ics-button" class="generate-button">Generera ICS-fil</button>
+       <button id="add-event-button" onclick="addEvent()">Lägg till händelse</button>
+<button id="generate-ics-button" onclick="generateICS()">Generera ICS</button>
+<a id="download-link" style="display:none;"></a>
+
 
 
         <h2>Tillagda händelser</h2>
